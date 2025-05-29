@@ -10,7 +10,7 @@ const ChatMessageContainer: ForwardRefRenderFunction<HTMLDivElement, ChatMessage
   ref,
 ) => {
   return (
-    <ScrollArea ref={ref} className="h-full flex-1" type="always">
+    <ScrollArea ref={ref} className="h-full flex-1 px-2" type="always">
       {props.children}
     </ScrollArea>
   );

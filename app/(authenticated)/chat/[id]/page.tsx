@@ -23,35 +23,79 @@ export default function Home(props: HomeParams) {
   const [error, setError] = useState<any>([]);
 
   useEffect(() => {
-    async function fetchData() {
-      let token;
-      try {
-        // If microsoftTeams.app.initialize throw error that mean app ran in browser.
-        // we need to check that to use token from Tean SDK or server side token
-        await microsoftTeams.app.initialize();
-        const context = await microsoftTeams.app.getContext();
-        token = await microsoftTeams.authentication.getAuthToken();
-      } catch (e) {}
+    const mockMessages = [
+      {
+        role: 'user',
+        content: 'Hello, can you help me with React?',
+      },
+      {
+        role: 'assistant',
+        content: 'Sure! React is a JavaScript library for building user interfaces.',
+      },
+      {
+        role: 'assistant',
+        content: 'Here is an example image:',
+        multiModalImage: 'https://via.placeholder.com/300x150',
+      },
+      {
+        role: 'function',
+        name: 'analyzeText',
+        content: JSON.stringify({
+          sentiment: 'positive',
+          summary: 'Text analysis shows good results.',
+        }),
+      },
+      {
+        role: 'tool',
+        name: 'dataExport',
+        content: JSON.stringify({
+          status: 'success',
+          rowsExported: 120,
+        }),
+      },
+    ];
 
-      const [chatResponse, chatThreadResponse] = await Promise.all([
-        FindAllChatMessagesForCurrentUser(id, token),
-        FindChatThreadForCurrentUser(id, token),
-      ]);
-      setAllChatMessagesForCurrentUser(chatResponse);
+    const mockThread = {
+      id: 'thread-1',
+      title: 'Mock Chat Thread',
+      createdAt: new Date().toISOString(),
+    };
 
-      if (chatResponse.status !== 'OK') {
-        setError(chatResponse.errors);
-      }
-
-      setChatThreadForCurrentUser(chatThreadResponse);
-
-      if (chatThreadResponse.status !== 'OK') {
-        setError(chatThreadResponse.errors);
-      }
+    // имитируем задержку
+    setTimeout(() => {
+      setAllChatMessagesForCurrentUser({ status: 'OK', response: mockMessages });
+      setChatThreadForCurrentUser({ status: 'OK', response: mockThread });
       setLoading(false);
-    }
-
-    fetchData();
+    }, 500);
+    // async function fetchData() {
+    //   let token;
+    //   try {
+    //     // If microsoftTeams.app.initialize throw error that mean app ran in browser.
+    //     // we need to check that to use token from Tean SDK or server side token
+    //     await microsoftTeams.app.initialize();
+    //     const context = await microsoftTeams.app.getContext();
+    //     token = await microsoftTeams.authentication.getAuthToken();
+    //   } catch (e) {}
+    //
+    //   const [chatResponse, chatThreadResponse] = await Promise.all([
+    //     FindAllChatMessagesForCurrentUser(id, token),
+    //     FindChatThreadForCurrentUser(id, token),
+    //   ]);
+    //   setAllChatMessagesForCurrentUser(chatResponse);
+    //
+    //   if (chatResponse.status !== 'OK') {
+    //     setError(chatResponse.errors);
+    //   }
+    //
+    //   setChatThreadForCurrentUser(chatThreadResponse);
+    //
+    //   if (chatThreadResponse.status !== 'OK') {
+    //     setError(chatThreadResponse.errors);
+    //   }
+    //   setLoading(false);
+    // }
+    //
+    // fetchData();
   }, []);
 
   if (loading) {

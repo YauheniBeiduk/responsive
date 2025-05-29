@@ -11,7 +11,7 @@ export const ChatInputForm = React.forwardRef<
   HTMLFormElement,
   React.HTMLAttributes<HTMLFormElement> & ChatInputAreaProps // Add ChatInputAreaProps to the type definition
 >(({ status, ...props }, ref) => (
-  <div className="absolute bottom-5 w-full py-2">
+  <div className="sticky bottom-0 z-10 w-full bg-white p-2">
     <div className="container flex max-w-3xl flex-col gap-1">
       <ChatInputStatus status={status} />
       <div className="overflow-hidden rounded-md border bg-stone-50 backdrop-blur-xl focus-within:border-primary">

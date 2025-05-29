@@ -53,7 +53,7 @@ export const ChatPage: FC<ChatPageProps> = (props) => {
   useChatScrollAnchor({ ref: current });
 
   return (
-    <main className="red relative flex flex-1 flex-col p-2">
+    <main className="red relative flex flex-1 flex-col overflow-x-hidden p-2">
       <ChatHeader chatThread={props.chatThread} />
       <ChatMessageContainer ref={current}>
         <ChatMessageContentArea>

@@ -9,7 +9,7 @@ export const ChatTextInput = React.forwardRef<
   return (
     <textarea
       ref={ref}
-      className="w-full resize-none bg-transparent p-4 focus:outline-none"
+      className="h-[65px] w-full resize-none bg-transparent p-4 focus:outline-none sm:h-auto"
       placeholder={t('inputHolder')}
       {...props}
     />
