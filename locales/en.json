@@ -1,0 +1,16 @@
+{
+  "Chat": {
+    "unauthorized": "Unauthorized",
+    "logOut": "Log out",
+    "logIn": "Log in",
+    "logInWelcome": "Log in with your Microsoft 365 account",
+    "helpQuestion": "Hello, how can I help you?",
+    "inputHolder": "Try not to use abbreviations. Be precise in asking your questions.",
+    "newChat": "New chat",
+    "chatHistory": "Chat history",
+    "references": "References",
+    "romanian": "Romanian",
+    "english": "English",
+    "switchLanguage": "Switch language"
+  }
+}

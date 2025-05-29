@@ -1,0 +1,16 @@
+{
+    "Chat": {
+      "unauthorized": "Neautorizat",
+      "logOut": "Log out",
+      "logIn": "Log in",
+      "logInWelcome": "Conectați-vă folosind contul dvs. Mega Image Microsoft 365",
+      "helpQuestion": "Salut, cu ce te pot ajuta?",
+      "inputHolder": "Încercați să nu folosiți abrevieri. Folosește întrebări precise.",
+      "newChat": "Chat Nou",
+      "chatHistory": "Istoric Chat",
+      "references": "Referințe",
+      "romanian": "Română",
+      "english": "Engleză",
+      "switchLanguage": "Schimbați limba"
+    }
+  }
