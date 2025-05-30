@@ -2,8 +2,6 @@
 import { ChatMenu } from '@/features/chat-page/chat-menu/chat-menu';
 import { ChatMenuHeader } from '@/features/chat-page/chat-menu/chat-menu-header';
 import { FindAllChatThreadForCurrentUser } from '@/features/chat-page/chat-services/chat-thread-service';
-import { MenuTray } from '@/features/main-menu/menu-tray';
-import { cn } from '@/ui/lib';
 
 import * as microsoftTeams from '@microsoft/teams-js';
 import { useEffect, useState } from 'react';
@@ -31,62 +29,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       menuStore.toggleMenu();
     }
   }, [pathname]);
+
   console.log('Fetch started');
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     let token;
-  //     try {
-  //       // If microsoftTeams.app.initialize throw error that mean app ran in browser.
-  //       // we need to check that to use token from Tean SDK or server side token
-  //       await microsoftTeams.app.initialize();
-  //       const context = await microsoftTeams.app.getContext();
-  //       token = await microsoftTeams.authentication.getAuthToken();
-  //     } catch (e) {}
-  //
-  //     const chatHistoryResponse = await FindAllChatThreadForCurrentUser(token);
-  //     setChatHistoryResponse(chatHistoryResponse);
-  //
-  //     if (chatHistoryResponse?.status !== 'OK') {
-  //       setError(chatHistoryResponse?.errors);
-  //     }
-  //   }
-  //
-  //   fetchData();
-  // }, [children]);
+  useEffect(() => {
+    async function fetchData() {
+      let token;
+      try {
+        // If microsoftTeams.app.initialize throw error that mean app ran in browser.
+        // we need to check that to use token from Tean SDK or server side token
+        await microsoftTeams.app.initialize();
+        const context = await microsoftTeams.app.getContext();
+        token = await microsoftTeams.authentication.getAuthToken();
+      } catch (e) {}
+
+      const chatHistoryResponse = await FindAllChatThreadForCurrentUser(token);
+      setChatHistoryResponse(chatHistoryResponse);
+
+      if (chatHistoryResponse?.status !== 'OK') {
+        setError(chatHistoryResponse?.errors);
+      }
+    }
+
+    fetchData();
+  }, [children]);
 
   if (error?.length) {
     return <DisplayError errors={error} />;
   }
 
-  // if (!chatHistoryResponse) {
-  //   return <PageLoader></PageLoader>; // Show a loading state while data is being fetched
-  // }
-  const menuItems = [
-    {
-      id: 'thread-1',
-      name: 'Project Kickoff',
-      createdAt: new Date('2025-05-01T10:00:00Z'),
-      updatedAt: new Date('2025-05-01T10:30:00Z'),
-      participants: ['Alice', 'Bob'],
-      lastMessage: {
-        sender: 'Alice',
-        content: 'Let’s start the project!',
-        timestamp: new Date('2025-05-01T10:29:00Z'),
-      },
-    },
-    {
-      id: 'thread-2',
-      name: 'Design Review',
-      createdAt: new Date('2025-05-02T14:00:00Z'),
-      updatedAt: new Date('2025-05-02T14:45:00Z'),
-      participants: ['Charlie', 'Dana'],
-      lastMessage: {
-        sender: 'Dana',
-        content: 'Looks good to me!',
-        timestamp: new Date('2025-05-02T14:44:00Z'),
-      },
-    },
-  ];
+  if (!chatHistoryResponse) {
+    return <PageLoader></PageLoader>; // Show a loading state while data is being fetched
+  }
+
   return (
     <div className="relative flex w-full flex-1">
       <div className="flex w-full flex-1">
@@ -107,11 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ChatMenuHeader />
               </div>
               <ScrollArea>
-                <ChatMenu
-                  menuItems={
-                    chatHistoryResponse?.response ? chatHistoryResponse?.response : menuItems
-                  }
-                />
+                <ChatMenu menuItems={chatHistoryResponse?.response} />
               </ScrollArea>
             </div>
           )
@@ -119,11 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div>
             <ChatMenuHeader />
             <ScrollArea>
-              <ChatMenu
-                menuItems={
-                  chatHistoryResponse?.response ? chatHistoryResponse?.response : menuItems
-                }
-              />
+              <ChatMenu menuItems={chatHistoryResponse?.response} />
             </ScrollArea>
           </div>
         )}

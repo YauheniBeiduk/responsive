@@ -5,7 +5,6 @@ import { CreateChatAndRedirect } from '../chat-services/chat-thread-service';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import * as microsoftTeams from '@microsoft/teams-js';
 import { useIsMobile } from '@/features/hooks/useIsMobile';
 
@@ -56,9 +55,7 @@ export const ChatHeader: FC<Props> = (props) => {
           CreateChatAndRedirect(null, name, token, userId);
         }}
         className="flex gap-2 pr-3"
-      >
-      </form>
-
+      ></form>
     </div>
   );
 };

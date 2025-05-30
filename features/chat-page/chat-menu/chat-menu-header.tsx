@@ -4,7 +4,7 @@ import { NewChat } from './new-chat';
 import { useTranslations } from 'next-intl';
 import * as microsoftTeams from '@microsoft/teams-js';
 import { useEffect, useState } from 'react';
-import { useIsMobile } from "@/features/hooks/useIsMobile";
+import { useIsMobile } from '@/features/hooks/useIsMobile';
 
 export const ChatMenuHeader = () => {
   const t = useTranslations('Chat');
